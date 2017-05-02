@@ -11,7 +11,7 @@ PHP Library ( PHP >= 5 ) CGI
 	
 	Please read `readme.php` document.
 	
-> Example : demo
+> Example
 
 	Schedule script.
 	eg: file `schedule01.php`
@@ -31,3 +31,5 @@ PHP Library ( PHP >= 5 ) CGI
 	hpl_scheduler::yield('schedule01.php');
 	?>
 	--------------------------------------------------------------
+	
+	Refer to the demo.
