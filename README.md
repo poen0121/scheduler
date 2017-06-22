@@ -1,16 +1,16 @@
 # scheduler
-PHP Library ( PHP >= 5 ) CGI
-    
+PHP Library ( PHP >= 5.2 ) CGI
+
 > About
 
 	Scheduler the operation mode by CGI.
 
 	Yield function with CURL support.
-	
+
 > Learning Documents
-	
+
 	Please read `readme.php` document.
-	
+
 > Example
 
 	Schedule script.
@@ -31,5 +31,5 @@ PHP Library ( PHP >= 5 ) CGI
 	hpl_scheduler::yield('schedule01.php');
 	?>
 	--------------------------------------------------------------
-	
+
 	Refer to the demo.
