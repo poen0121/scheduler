@@ -16,8 +16,6 @@
 
 >> About
 
-	GitHub : https://github.com/poen0121/scheduler
-
 	Scheduler the operation mode by CGI.
 
 	Yield function with CURL support.
