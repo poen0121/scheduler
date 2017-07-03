@@ -58,7 +58,7 @@ if (!class_exists('hpl_scheduler')) {
 				if ($interval < 1 || $interval > 31536000) {
 					hpl_error :: cast(__CLASS__ . '::' . __FUNCTION__ . '(): The parameter 2 number should be 1 ~ 31536000', E_USER_WARNING, 1);
 				}
-				elseif (!isset ($_SERVER['SCRIPT_NAME'])) {
+				elseif (!isset ($_SERVER['SCRIPT_NAME']) || (isset ($_SERVER['SCRIPT_NAME']) && !is_string($_SERVER['SCRIPT_NAME']))) {
 					hpl_error :: cast(__CLASS__ . '::' . __FUNCTION__ . '(): Can not capture the current script name', E_USER_ERROR, 1);
 				}
 				elseif ($switch) {
