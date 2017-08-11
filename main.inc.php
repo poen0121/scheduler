@@ -27,9 +27,10 @@ if (!class_exists('hpl_scheduler')) {
 						curl_setopt($ch, CURLOPT_URL, $url);
 						curl_setopt($ch, CURLOPT_HEADER, false);
 						curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+						curl_setopt($ch, CURLOPT_REFERER, $url);
 						curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 						curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
-						curl_setopt($ch, CURLOPT_TIMEOUT, 3);
+						curl_setopt($ch, CURLOPT_TIMEOUT, 1);
 						curl_exec($ch);
 						$http_error = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 						$curl_error = curl_errno($ch);
@@ -49,25 +50,27 @@ if (!class_exists('hpl_scheduler')) {
 		 * @param - boolean $switch (open or close the script) : Default false
 		 * @note - $switch `true` is open the schedule script.
 		 * @note - $switch `false` is close the schedule script.
-		 * @param - integer $interval (by the switch to open the interval the number of minutes 1 ~ 31536000) : Default 1
+		 * @param - integer $interval (by the switch to open the interval the number of seconds 1 ~ 2147483647) : Default 1
 		 * @return - boolean
 		 * @usage - hpl_scheduler::command($switch,$interval);
 		 */
 		public static function command($switch = false, $interval = 1) {
 			if (!hpl_func_arg :: delimit2error() && !hpl_func_arg :: bool2error(0) && !hpl_func_arg :: int2error(1)) {
-				if ($interval < 1 || $interval > 31536000) {
-					hpl_error :: cast(__CLASS__ . '::' . __FUNCTION__ . '(): The parameter 2 number should be 1 ~ 31536000', E_USER_WARNING, 1);
+				if ($interval < 1) {
+					hpl_error :: cast(__CLASS__ . '::' . __FUNCTION__ . '(): The parameter 2 number should be > 0', E_USER_WARNING, 1);
 				}
-				elseif (!isset ($_SERVER['SCRIPT_NAME']) || (isset ($_SERVER['SCRIPT_NAME']) && !is_string($_SERVER['SCRIPT_NAME']))) {
-					hpl_error :: cast(__CLASS__ . '::' . __FUNCTION__ . '(): Can not capture the current script name', E_USER_ERROR, 1);
+				elseif (!isset ($_SERVER['REQUEST_URI']) || (isset ($_SERVER['REQUEST_URI']) && !is_string($_SERVER['REQUEST_URI']))) {
+					hpl_error :: cast(__CLASS__ . '::' . __FUNCTION__ . '(): Unable to capture the current script request URI', E_USER_ERROR, 1);
 				}
 				elseif ($switch) {
-					ignore_user_abort(1); //run script in background
-					set_time_limit(0); //run script forever
-					sleep($interval * 60); //interval time
-					//note : this function does not capture the actual location of debug_backtrace [file,line]
-					register_shutdown_function(__CLASS__ . '::yield', $_SERVER['SCRIPT_NAME']);
-					return true;
+					if (isset ($_SERVER['HTTP_REFERER'] { 0 }) && is_string($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] == hpl_path :: absolute($_SERVER['REQUEST_URI'])) {
+						ignore_user_abort(1); //run script in background
+						set_time_limit(0); //run script forever
+						sleep($interval); //interval seconds time
+						//note : this function does not capture the actual location of debug_backtrace [file,line]
+						register_shutdown_function(__CLASS__ . '::yield', $_SERVER['REQUEST_URI']);
+						return true;
+					}
 				}
 			}
 			return false;

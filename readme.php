@@ -3,7 +3,7 @@
 >> Information
 
 	Title		: hpl_scheduler function
-	Revision	: 1.2.0
+	Revision	: 1.2.1
 	Notes		:
 
 	Revision History:
@@ -12,11 +12,12 @@
 	12-07-2016		Poen		12-07-2016	Poen		Create the program.
 	12-08-2016		Poen		12-08-2016	Poen		Debug yield function.
 	03-27-2017		Poen		03-27-2017	Poen		Fix command function error message.
+	08-10-2017		Poen		08-10-2017	Poen		Fix the using the script request URI.
+	08-10-2017		Poen		08-10-2017	Poen		Modify yield function CURL timeout 1 seconds.
+	08-10-2017		Poen		08-10-2017	Poen		Improve command function by yield function trigger.
 	---------------------------------------------------------------------------
 
 >> About
-
-	GitHub : https://github.com/poen0121/scheduler
 
 	Scheduler the operation mode by CGI.
 
@@ -45,6 +46,9 @@
 	Example : __FILE__ >> /var/www/schedule01.php
 	hpl_scheduler::yield(__FILE__);
 	Output >> TRUE
+	Example : __FILE__ >> /var/www/schedule01.php
+	hpl_scheduler::yield('schedule01.php?test=1');
+	Output >> TRUE
 	==============================================================
 
 	==============================================================
@@ -53,7 +57,7 @@
 	Param : boolean $switch (open or close the script) : Default false
 	Note : $switch `true` is open the schedule script.
 	Note : $switch `false` is close the schedule script.
-	Param : integer $interval (by the switch to open the interval the number of minutes 1 ~ 31536000) : Default 1
+	Param : integer $interval (by the switch to open the interval the number of seconds 1 ~ 2147483647) : Default 1
 	Return : boolean
 	--------------------------------------------------------------
 	Example : Open the schedule script.
@@ -71,8 +75,9 @@
 	--------------------------------------------------------------
 	<?php
 	include('scheduler/main.inc.php');
-	hpl_scheduler::command(true,5);
-	error_log('Message : Test time ['.time().']'.PHP_EOL, 3, './schedule01.log');
+	if(hpl_scheduler::command(true,5)){
+		error_log('Message : Test time ['.time().']'.PHP_EOL, 3, './schedule01.log');
+	}
 	?>
 	--------------------------------------------------------------
 

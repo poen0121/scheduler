@@ -18,8 +18,9 @@ PHP Library ( PHP >= 5.2 ) CGI
 	--------------------------------------------------------------
 	<?php
 	include('scheduler/main.inc.php');
-	hpl_scheduler::command(true,5);
-	error_log('Message : Test time ['.time().']'.PHP_EOL, 3, './schedule01.log');
+	if(hpl_scheduler::command(true,5)){
+		error_log('Message : Test time ['.time().']'.PHP_EOL, 3, './schedule01.log');
+	}
 	?>
 	--------------------------------------------------------------
 
