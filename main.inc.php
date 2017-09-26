@@ -59,7 +59,7 @@ if (!class_exists('hpl_scheduler')) {
 				if ($interval < 1) {
 					hpl_error :: cast(__CLASS__ . '::' . __FUNCTION__ . '(): The parameter 2 number should be > 0', E_USER_WARNING, 1);
 				}
-				elseif (!isset ($_SERVER['REQUEST_URI']) || (isset ($_SERVER['REQUEST_URI']) && !is_string($_SERVER['REQUEST_URI']))) {
+				elseif (!isset ($_SERVER['REQUEST_URI']) || !is_string($_SERVER['REQUEST_URI'])) {
 					hpl_error :: cast(__CLASS__ . '::' . __FUNCTION__ . '(): Unable to capture the current script request URI', E_USER_ERROR, 1);
 				}
 				elseif ($switch) {

@@ -3,7 +3,7 @@
 >> Information
 
 	Title		: hpl_scheduler function
-	Revision	: 1.2.1
+	Revision	: 1.2.2
 	Notes		:
 
 	Revision History:
@@ -15,6 +15,7 @@
 	08-10-2017		Poen		08-10-2017	Poen		Fix the using the script request URI.
 	08-10-2017		Poen		08-10-2017	Poen		Modify yield function CURL timeout 1 seconds.
 	08-10-2017		Poen		08-10-2017	Poen		Improve command function by yield function trigger.
+	09-26-2016		Poen		09-26-2017	Poen		Improve the program.
 	---------------------------------------------------------------------------
 
 >> About
