@@ -45,7 +45,7 @@ if (!class_exists('hpl_scheduler')) {
 			}
 			return false;
 		}
-		/** The scheduler command for the script.
+		/** The motor function controls the schedule script.
 		 * @access - public function
 		 * @param - boolean $switch (open or close the script) : Default false
 		 * @note - $switch `true` is open the schedule script.
@@ -62,15 +62,34 @@ if (!class_exists('hpl_scheduler')) {
 				elseif (!isset ($_SERVER['REQUEST_URI']) || !is_string($_SERVER['REQUEST_URI'])) {
 					hpl_error :: cast(__CLASS__ . '::' . __FUNCTION__ . '(): Unable to capture the current script request URI', E_USER_ERROR, 1);
 				}
-				elseif ($switch) {
-					if (isset ($_SERVER['HTTP_REFERER'] { 0 }) && is_string($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] == hpl_path :: absolute($_SERVER['REQUEST_URI'])) {
-						ignore_user_abort(1); //run script in background
-						set_time_limit(0); //run script forever
-						sleep($interval); //interval seconds time
-						//note : this function does not capture the actual location of debug_backtrace [file,line]
-						register_shutdown_function(__CLASS__ . '::yield', $_SERVER['REQUEST_URI']);
-						return true;
-					}
+				elseif ($switch && isset ($_SERVER['HTTP_REFERER'] { 0 }) && is_string($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] == hpl_path :: absolute($_SERVER['REQUEST_URI'])) {
+					/* always run the script in the background */
+					self :: shoot();
+					/* interval seconds time */
+					sleep($interval);
+					/* note : this function does not capture the actual location of debug_backtrace [file,line] */
+					register_shutdown_function(__CLASS__ . '::yield', $_SERVER['REQUEST_URI']);
+					return true;
+				}
+			}
+			return false;
+		}
+		/** A launcher function that always run script in the background.
+		 * @access - public function
+		 * @return - boolean
+		 * @usage - hpl_scheduler::shoot();
+		 */
+		public static function shoot() {
+			if (!hpl_func_arg :: delimit2error()) {
+				if (!isset ($_SERVER['REQUEST_URI']) || !is_string($_SERVER['REQUEST_URI'])) {
+					hpl_error :: cast(__CLASS__ . '::' . __FUNCTION__ . '(): Unable to capture the current script request URI', E_USER_ERROR, 1);
+				}
+				elseif (isset ($_SERVER['HTTP_REFERER'] { 0 }) && is_string($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] == hpl_path :: absolute($_SERVER['REQUEST_URI'])) {
+					/* run script in background */
+					ignore_user_abort(true);
+					/* run script forever */
+					set_time_limit(0);
+					return true;
 				}
 			}
 			return false;

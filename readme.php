@@ -3,7 +3,7 @@
 >> Information
 
 	Title		: hpl_scheduler function
-	Revision	: 1.2.2
+	Revision	: 1.3.3
 	Notes		:
 
 	Revision History:
@@ -16,6 +16,8 @@
 	08-10-2017		Poen		08-10-2017	Poen		Modify yield function CURL timeout 1 seconds.
 	08-10-2017		Poen		08-10-2017	Poen		Improve command function by yield function trigger.
 	09-26-2016		Poen		09-26-2017	Poen		Improve the program.
+	11-01-2016		Poen		11-01-2017	Poen		Add shoot function.
+	11-01-2016		Poen		11-01-2017	Poen		Improve command function.
 	---------------------------------------------------------------------------
 
 >> About
@@ -23,6 +25,10 @@
 	Scheduler the operation mode by CGI.
 
 	Yield function with CURL support.
+
+	Command function controls the scheduler script.
+
+	Shoot function, so that the script is always running in the background.
 
 >> Usage Function
 
@@ -53,7 +59,7 @@
 	==============================================================
 
 	==============================================================
-	The scheduler command for the script.
+	The motor function controls the schedule script.
 	Usage : hpl_scheduler::command($switch,$interval);
 	Param : boolean $switch (open or close the script) : Default false
 	Note : $switch `true` is open the schedule script.
@@ -69,14 +75,35 @@
 	Output >> FALSE
 	==============================================================
 
+	==============================================================
+	A launcher function that always run script in the background.
+	Usage :  hpl_scheduler::shoot();
+	Return : boolean
+	--------------------------------------------------------------
+	Example :
+	hpl_scheduler::shoot();
+	Output >> TRUE
+	==============================================================
+
 >> Example
 
-	Schedule script.
+	Control the execution of the scheduling script.
 	eg: file `schedule01.php`
 	--------------------------------------------------------------
 	<?php
 	include('scheduler/main.inc.php');
 	if(hpl_scheduler::command(true,5)){
+		error_log('Message : Test time ['.time().']'.PHP_EOL, 3, './schedule01.log');
+	}
+	?>
+	--------------------------------------------------------------
+
+	Schedule a single execution of the script.
+	eg: file `schedule01.php`
+	--------------------------------------------------------------
+	<?php
+	include('scheduler/main.inc.php');
+	if(hpl_scheduler::shoot()){
 		error_log('Message : Test time ['.time().']'.PHP_EOL, 3, './schedule01.log');
 	}
 	?>

@@ -19,8 +19,8 @@
 	</style>
 </head>
 <body>
-	<h1>Trigger Schedule Files : schedule01.php
-	<form enctype="multipart/form-data" action="./schedule01.php" method="POST">
+	<h1>Trigger Schedule Files : trigger.php
+	<form enctype="multipart/form-data" action="./trigger.php" method="POST">
     <input type="submit" value="Trigger">
 	</form>
 	</h1>
