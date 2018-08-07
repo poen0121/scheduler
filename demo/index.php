@@ -21,7 +21,7 @@
 <body>
 	<h1>Trigger Schedule Files : trigger.php
 	<form enctype="multipart/form-data" action="./trigger.php" method="POST">
-    <input type="submit" value="Trigger">
+	<input type="submit" value="Trigger">
 	</form>
 	</h1>
 </html>
