@@ -59,10 +59,10 @@ if (!class_exists('hpl_scheduler')) {
 				if ($interval < 1) {
 					hpl_error :: cast(__CLASS__ . '::' . __FUNCTION__ . '(): The parameter 2 number should be > 0', E_USER_WARNING, 1);
 				}
-				elseif (!isset ($_SERVER['REQUEST_URI']) || !is_string($_SERVER['REQUEST_URI'])) {
+				elseif (!isset ($_SERVER['REQUEST_URI'] { 0 })) {
 					hpl_error :: cast(__CLASS__ . '::' . __FUNCTION__ . '(): Unable to capture the current script request URI', E_USER_ERROR, 1);
 				}
-				elseif ($switch && isset ($_SERVER['HTTP_REFERER'] { 0 }) && is_string($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] == hpl_path :: absolute($_SERVER['REQUEST_URI'])) {
+				elseif ($switch && isset ($_SERVER['HTTP_REFERER'] { 0 }) && $_SERVER['HTTP_REFERER'] == hpl_path :: absolute($_SERVER['REQUEST_URI'])) {
 					/* always run the script in the background */
 					self :: shoot();
 					/* interval seconds time */
@@ -81,10 +81,10 @@ if (!class_exists('hpl_scheduler')) {
 		 */
 		public static function shoot() {
 			if (!hpl_func_arg :: delimit2error()) {
-				if (!isset ($_SERVER['REQUEST_URI']) || !is_string($_SERVER['REQUEST_URI'])) {
+				if (!isset ($_SERVER['REQUEST_URI'] { 0 })) {
 					hpl_error :: cast(__CLASS__ . '::' . __FUNCTION__ . '(): Unable to capture the current script request URI', E_USER_ERROR, 1);
 				}
-				elseif (isset ($_SERVER['HTTP_REFERER'] { 0 }) && is_string($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] == hpl_path :: absolute($_SERVER['REQUEST_URI'])) {
+				elseif (isset ($_SERVER['HTTP_REFERER'] { 0 }) && $_SERVER['HTTP_REFERER'] == hpl_path :: absolute($_SERVER['REQUEST_URI'])) {
 					/* run script in background */
 					ignore_user_abort(true);
 					/* run script forever */
